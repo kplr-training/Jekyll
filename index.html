@@ -84,6 +84,32 @@ layout: default
     </li>
 </ul>
 
+ <script>
+      function createHtmlList(folderPath, indent = 0) {
+        let html = '';
+        html += ' '.repeat(indent) + '<ul>\n';
+        const items = fs.readdirSync(folderPath);
+        items.forEach(item => {
+          const itemPath = `${folderPath}/${item}`;
+          if (fs.statSync(itemPath).isDirectory()) {
+            html += ' '.repeat(indent) + `<li>${item}\n`;
+            html += createHtmlList(itemPath, indent + 2);
+          } else {
+            html += ' '.repeat(indent) + `<li>${item}</li>\n`;
+          }
+        });
+        html += ' '.repeat(indent) + '</ul>\n';
+        return html;
+      }
+
+      const folderPath = './';
+
+      const htmlList = createHtmlList(folderPath);
+      document.getElementById("folder-structure").innerHTML = htmlList;
+</script>
+
+<div id="folder-structure"></div>
+
 <script>  
   var blackCircle = "&#9679; ";
   var openCircle = "&#9678; ";
