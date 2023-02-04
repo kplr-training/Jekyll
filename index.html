@@ -2,100 +2,6 @@
 layout: default
 ---
 
-
-<style>
-  body{
-    margin:0;
-    font-family:Roboto,Helvetica,Arial,sans-serif;
-    display:flex;
-    flex-direction:column;
-    height:100%;
-    width:100%
-  }
-  *{
-    color:#fff;
-    text-decoration:none
-  }
-  h1{
-    background:#ff1959;
-    font-size:1.3125rem;
-    font-weight:500;
-    line-height:64px;
-    padding:0 20px;
-    box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
-    margin:0
-  }
-  h1+ul{
-    height:100%;
-    padding:20px;
-    overflow-y:auto;
-    overflow-x:hidden
-  }
-  #folder>a:nth-child(1){
-    height:15px;
-    display:inline-block;
-  }
-  #folder>a:nth-child(1):hover{
-    text-decoration:underline;
-    text-decoration-color:#ff1959
-  }
-  #file{
-    position:relative;
-    height:50px
-  }
-  #file a{
-    position:absolute;
-    display:inline-block;
-    height:calc(100% - 20px);
-    width:100%;
-    font-size:1rem;
-    font-weight:400;
-    line-height:30px;
-    padding:0 10px;
-    padding-top:4px;
-    margin:10px 0;
-    transition:background-color .5s ease;
-    color:#ff6892
-  }
-  #file:hover a{
-    background-color:rgba(255,255,255,.1)
-  }
-  ul,ul.tree ul{
-    list-style:none;
-    margin:0;
-    padding:0
-  }
-  li{
-    display:block
-  }
-  ul ul{
-    margin-left:10px
-  }
-  ul li{
-    margin:0;
-    padding:0 20px;
-    color:#369;
-    border-left:1px solid #ff1959
-  }
-  ul li:last-child{
-    border-left:none
-  }
-  ul li:before{
-    position:relative;
-    height:28px;
-    width:20px;
-    color:#fff;
-    border-bottom:1px solid #ff1959;
-    content:"";
-    display:inline-block;
-    left:-20px
-  }
-  ul li:last-child:before{
-    border-left:1px solid #ff1959
-  }
-  
-</style>
-
 <style>
   *,
   *:before,
@@ -146,74 +52,38 @@ layout: default
 
 
 <ul id=tree></ul>
-<script>
-var c=document.getElementsByTagName("ul")[0];
-function escapeHtml(e){
-  return e
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-  }
-for(var files=[
-  {% for url in site.static_files %} 
-  {% if url.extname == '.html' %}
-  '{{ url.path | replace: "'", "\'" }}',
-  {% endif %}
-  {% endfor %}]
-  ,i=0;i<files.length;i++)
-{
-  var url=files[i].split("/").slice(1);
-  // console.group(files[i]);
-  for(var x=0;x<url.length;x++){
-    var file=url[x];
-    if(file)
-      for(var element=null,parent=null,y=0;y<x+1;y++){
-        var el=document.querySelector("[ref="+JSON.stringify(y+"-"+url[y])+"]");
-        if(!el){
-          var type="folder";
-          url[y].indexOf(".")>-1 && (type="file"),
-          el=document.createElement("li");
-          var a=document.createElement("a");
-          a.innerHTML=escapeHtml(url[y].split(".")[0]),
-          (type=="file")?a.href=url.slice(0,x+1).join("/"):a.removeAttribute('href'),
-          el.appendChild(a),
-          el.setAttribute("ref",y+"-"+url[y]),
-          el.setAttribute("level",y),
-          el.setAttribute("id",type),
-          (type=="folder")?el.setAttribute("class","collapsible"):type="folder",
-          parent?
-            parent.appendChild(el):
-            c.appendChild(el)
-          }
-        parent=el
-      }
-  }
-    //console.groupEnd(files[i])
-}
-//document.title=document.querySelector("h1").innerHTML+=" ("+files.length+" items)";
+<li>
+    Google_AI
+    <ul>
+      <li>LSTM_IMDB_Sentiment_Example.html</li>
+      <li>Computer_Vision_Corrige.html</li>
+      <li>RNN_text_generation_.html</li>
+      <li>Sentiment_analysis_twitter.html</li>
+      <li>Speech_Reco.html</li>
+      <li>Comparaison_outils_analyse_sentiments_.html</li>
+      <li>Sentiment_Analysis_Airlines.html</li>
+      <li>Synthèse_vocale.html</li>
+    </ul>
+  </li>
 
-var coll = document.getElementsByClassName("collapsible");
-var i;
+  <li>
+    Deep-Learning-CNN
+    <ul>
+      <li>
+        Project-Exercices-Part
+        <ul>
+          <li>2_Image_Preprocessing_and_Data_Augmentation.html</li>
+          <li>5_Confusion_matrix.html</li>
+          <li>1_Extract_Car_Images_using_web_scrapping.html</li>
+          <li>3_CNN_Model_Transfer_Learning.html</li>
+          <li>4_Fine_Tuning.html</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    coll[i].classList.toggle("active");
-    var nextSiblings = coll[i].parentNode.childNodes;
-    for(var j=1;j<nextSiblings.length;j++){
-      var content = nextSiblings[j]; //this.nextElementSibling;
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-    }
-  });
-}
-</script>
-<script>
-  
+<script>  
   var blackCircle = "&#9679; ";
   var openCircle = "&#9678; ";
 
